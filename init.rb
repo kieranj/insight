@@ -15,4 +15,3 @@ FatFreeCRM::Plugin.register(:insight, initializer) do
 end
 
 require "api_authorized_filter"
-require "insight"
