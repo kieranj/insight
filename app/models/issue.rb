@@ -1,7 +1,5 @@
 class Issue < ActiveRecord::Base
   
-  acts_as_url :subject, :url_attribute => :slug
-  
   Priorities = [ "Low", "Minor", "Major", "Critical" ]
   
   States     = [ "Open", "Closed" ]
@@ -18,6 +16,7 @@ class Issue < ActiveRecord::Base
   validates_presence_of :body
   
   before_create :set_initial_state
+  before_create :generate_slug
   
   named_scope :by_category, lambda { |category_ids| 
     { :conditions => [ "category_id IN (?)", category_ids ] } 
@@ -61,6 +60,10 @@ class Issue < ActiveRecord::Base
   
     def set_initial_state
       self.state = "Open"
+    end
+    
+    def generate_slug
+      self.slug = self.subject.downcase.gsub(/ /, "-")
     end
   
 end

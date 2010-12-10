@@ -1,7 +1,5 @@
 class Article < ActiveRecord::Base
   
-  acts_as_url :title, :url_attribute => :slug
-  
   acts_as_paranoid
   
   belongs_to :product
@@ -12,5 +10,13 @@ class Article < ActiveRecord::Base
   validates_presence_of   :body
   validates_presence_of   :product
   validates_presence_of   :category
+  
+  before_save :generate_slug
+  
+  protected
+  
+    def generate_slug
+      self.slug = self.title.downcase.gsub(/ /, "-")
+    end
   
 end

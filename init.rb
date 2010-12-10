@@ -14,6 +14,5 @@ FatFreeCRM::Plugin.register(:insight, initializer) do
   tab          :main,  :text => "Issues",             :url => { :controller => "issues" }
 end
 
-require "stringex"
 require "api_authorized_filter"
 require "insight"
