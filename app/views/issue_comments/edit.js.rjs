@@ -1,0 +1,8 @@
+id = dom_id(@comment)
+
+if params[:cancel].true?
+  page[id].replace :partial => "comment", :collection => [ @comment ]
+else
+  page.call "crm.highlight_off", id
+  page[id].replace_html :partial => "edit"
+end

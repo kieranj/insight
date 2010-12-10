@@ -1,0 +1,10 @@
+if @article.valid?
+  page[:create_article_arrow].replace_html "&#9658;"
+  page[:create_article_title].replace_html "Articles"
+  page.visual_effect :toggle_blind, :create_article, :duration => 0.3, :afterFinish => 'function(effect) {effect.element.update("")}'
+  page.insert_html :top, :articles, :partial => "article", :collection => [ @article ]
+  page[dom_id(@article)].visual_effect :highlight, :duration => 1.5
+else
+  page[:create_article].replace_html :partial => "create"
+  page[:create_article].visual_effect :shake, :duration => 0.25, :distance => 6
+end

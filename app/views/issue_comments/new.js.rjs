@@ -1,0 +1,7 @@
+if session["issue_new_comment"]
+  page[:ask].hide
+  page[:post].show
+else
+  page[:post].hide
+  page[:ask].show
+end

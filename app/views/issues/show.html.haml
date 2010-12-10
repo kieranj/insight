@@ -1,0 +1,15 @@
+= styles_for :issue
+
+#confirm{ hidden }
+.title_tools#menu
+  = link_to_inline(:edit_issue, edit_issue_path(@issue), :text => t(:edit)) + " | "
+  = link_to_function(t(:delete) + '?', confirm_delete(@issue))
+.title#edit_issue_title= h(@issue.subject)
+
+%div#edit_issue{ hidden }
+
+= simple_format(@issue.body)
+
+= render :partial => "issue_comments/new"
+%ul#comments
+  = render :partial =>"issue_comments/comment", :collection => @issue.comments

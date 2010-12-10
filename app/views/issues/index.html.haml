@@ -1,0 +1,15 @@
+= styles_for :issues
+
+.title
+  %span#create_contact_title Issues
+
+.list#issues
+  - unless @issues.empty?
+    = render :partial => "issue", :collection => @issues
+  - else
+    #empty
+      Could not find any issues.
+      
+    
+    
+#paginate= render :partial => "common/paginate"

@@ -1,0 +1,9 @@
+id = dom_id(@issue)
+
+if @issue.errors.empty?
+  page.call "crm.flip_form", :edit_issue
+  page.call "crm.set_title", :edit_issue, @issue.name
+else  
+  page[id].replace_html :partial => "edit"
+  page[id].visual_effect :shake, :duration => 0.25, :distance => 6
+end

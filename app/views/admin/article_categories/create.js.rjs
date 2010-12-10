@@ -1,0 +1,10 @@
+if @category.valid?
+  page[:create_category_arrow].replace_html "&#9658;"
+  page[:create_category_title].replace_html "Article Categories"
+  page.visual_effect :toggle_blind, :create_category, :duration => 0.3, :afterFinish => 'function(effect) {effect.element.update("")}'
+  page.insert_html :top, :categories, :partial => "category", :collection => [ @category ]
+  page[dom_id(@category)].visual_effect :highlight, :duration => 1.5
+else
+  page[:create_category].replace_html :partial => "create"
+  page[:create_category].visual_effect :shake, :duration => 0.25, :distance => 6
+end

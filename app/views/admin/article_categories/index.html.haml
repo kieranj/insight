@@ -1,0 +1,9 @@
+.title_tools
+  = link_to_inline(:create_category, new_admin_article_category_path, :text => "Create Article Category")
+  
+.title
+  %span#create_category_title Article Categories
+  
+.remove#create_category{ hidden }
+
+.list#categories= render :partial => "category", :collection => @categories

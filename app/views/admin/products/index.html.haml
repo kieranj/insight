@@ -1,0 +1,9 @@
+.title_tools
+  = link_to_inline(:create_product, new_admin_product_path, :text => "Create Product")
+  
+.title
+  %span#create_product_title Products
+  
+.remove#create_product{ hidden }
+
+.list#products= render :partial => "product", :collection => @products

@@ -1,0 +1,18 @@
+- class_name = "issue"
+.comment#comment_new{ highlightable(:comment_new_tools, :off => "#f2f2f2") }
+
+  = link_to avatar_for(@current_user, :size => "25x25"), user_path(@current_user)
+  
+  .tools#comment_new_tools{ invisible }
+    = link_to_function("Expand All", "crm.flip_notes_and_emails('Expanded', 'More...', 'Less...')") << " | "
+    = link_to_function("Collapse All", "crm.flip_notes_and_emails('Collapsed', 'More...', 'Less...')")
+
+  #post{ hidden_if(session["issue_new_comment"].nil?) }
+    - remote_form_for([@issue, @comment]) do |f|
+      = f.text_area :comment
+      %div{:style => "padding:6px 0px 0px 40px;"}
+        = f.submit t(:add_note)
+        #{t :or}
+        = link_to_remote(t(:cancel), :url => new_issue_comment_url(@issue), :method => :get, :with => "'cancel=true'")
+  #ask{ hidden_if(session["issue_new_comment"])}
+    = text_field_tag :post_new_note, t(:add_note_help), :onclick => remote_function(:url => new_issue_comment_url(@issue), :method => :get)

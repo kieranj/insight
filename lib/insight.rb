@@ -1,0 +1,1 @@
+require "insight/insight_models"

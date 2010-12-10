@@ -1,0 +1,10 @@
+%li[product]{ highlightable(dom_id(product, :tools)) }
+  
+  .tools{ invisible, :id => dom_id(product, :tools) }
+    = link_to_edit(product)
+    
+  %span.black{:style => "display: block; float: left; width: 100px"} #{product.name}
+  %span{:style => "margin-left: 50px"} 
+    API Key: 
+    %strong #{product.api_key}
+  

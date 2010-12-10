@@ -1,0 +1,8 @@
+- remote_form_for([:admin, @article], :html => one_submit_only(:article).merge({:autocomplete => 'off'})) do |f|
+  = link_to_close edit_admin_article_path(@article)
+  = f.error_messages
+  = render :partial => "admin/articles/form", :locals => { :f => f }
+  .buttonbar
+    = f.submit "Save Article"
+    #{t :or}
+    = link_to_cancel edit_admin_article_path(@article)

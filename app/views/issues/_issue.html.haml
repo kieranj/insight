@@ -1,0 +1,10 @@
+- gravatar_size = @current_user.preference[:contacts_outline] == "brief" ? "16x16" : "30x30"
+
+%li[issue]{ highlightable(dom_id(issue, :tools)) }
+  / = gravatar_for(issue.contact, :size => gravatar_size)
+  
+  .tools{ invisible, :id => dom_id(issue, :tools) }
+    = link_to_delete(issue)
+  
+  = link_to(h(issue.subject), issue)
+  = issue.assigned? ? issue.assigned_to.username : "Unassigned"

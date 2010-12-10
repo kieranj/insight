@@ -1,0 +1,20 @@
+# Insight
+
+FatFree CRM plugin for support issues and knowledge base articles.
+
+## Installation
+
+  script/plugin install insight
+
+## Usage
+
+Run the migrations
+
+    rake db:migrate:plugins
+    
+Setup your products and categories in admin, then install insight_rails in your app to interact with this data.
+  
+## Copyright
+
+Copyright (c) 2010 Kieran Johnson. See LICENSE for details.
+

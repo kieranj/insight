@@ -1,0 +1,8 @@
+page.call "crm.flip_form", :create_category
+
+if params[:cancel] != "true"
+  page[:create_category].replace_html :partial => "create"
+  page.call "crm.set_title", :create_category, "Create Article Category"
+else
+  page.call "crm.set_title", :create_category, "Article Categories"
+end

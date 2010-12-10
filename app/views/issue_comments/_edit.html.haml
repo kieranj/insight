@@ -1,0 +1,8 @@
+.comment{:style => "margin: 5px 0px 0px 0px"}
+  = link_to avatar_for(@current_user, :size => "25x25"), user_path(@current_user)
+  - remote_form_for(@comment, :url => issue_comment_path(@issue, @comment)) do |f|
+    = f.text_area :comment
+    %div{:style => "padding:6px 0px 0px 40px;"}
+      = f.submit t(:save_note)
+      #{t :or}
+      = link_to_remote(t(:cancel), :url => new_issue_comment_url(@issue), :method => :get, :with => "'cancel=true'")

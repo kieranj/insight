@@ -1,0 +1,9 @@
+.title_tools
+  = link_to_inline(:create_article, new_admin_article_path, :text => "Create Article")
+  
+.title
+  %span#create_article_title Articles
+  
+.remove#create_article{ hidden }
+
+.list#articles= render :partial => "article", :collection => @articles

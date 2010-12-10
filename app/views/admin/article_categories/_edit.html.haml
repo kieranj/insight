@@ -1,0 +1,8 @@
+- remote_form_for([:admin, @category], :html => one_submit_only(:article_category).merge({:autocomplete => 'off'})) do |f|
+  = link_to_close edit_admin_issue_category_path(@category)
+  = f.error_messages
+  = render :partial => "admin/issue_categories/form", :locals => { :f => f }
+  .buttonbar
+    = f.submit "Save Category"
+    #{t :or}
+    = link_to_cancel edit_admin_issue_category_path(@category)

@@ -1,0 +1,1 @@
+page[:issues].replace_html render(:partial => "issue", :collection => @issues)

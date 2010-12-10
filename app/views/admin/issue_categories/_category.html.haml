@@ -1,0 +1,6 @@
+%li[category]{ highlightable(dom_id(category, :tools)) }
+  
+  .tools{ invisible, :id => dom_id(category, :tools) }
+    = link_to_edit(category)
+    
+  %span.black #{category.name}

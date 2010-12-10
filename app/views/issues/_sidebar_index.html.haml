@@ -1,0 +1,34 @@
+.filters#filters
+  / = render :partial => "common/search"
+  %h4 Products
+  - Product.find_each do |product|
+    .check_box{:style => "border-bottom: 1px silver dotted;"}
+      %div{:style => "float:right;"}
+        = Issue.find_all_by_product_id(product.id).count
+      = issue_product_checkbox(product, Issue.find_all_by_product_id(product.id).count)
+      = label_tag(product.name)
+        
+  %br
+  %h4 Categories
+  - IssueCategory.find_each do |category|
+    .check_box{:style => "border-bottom: 1px silver dotted;"}
+      %div{:style => "float:right;"}
+        = @issue_category_total[category.id]
+      = issue_category_checkbox(category, @issue_category_total[category.id])
+      = label_tag(category.name)
+  %br
+  %h4 Priorities
+  - Issue::Priorities.each do |priority|
+    .check_box{:style => "border-bottom: 1px silver dotted;"}
+      %div{:style => "float:right;"}
+        = Issue.find_all_by_priority(priority).count
+      = issue_priority_checkbox(priority, Issue.find_all_by_priority(priority).count)
+      = label_tag(priority)
+  %br
+  %h4 Priorities
+  - Issue::States.each do |state|
+    .check_box{:style => "border-bottom: 1px silver dotted;"}
+      %div{:style => "float:right;"}
+        = Issue.find_all_by_state(state).count
+      = issue_state_checkbox(state, Issue.find_all_by_state(state).count)
+      = label_tag(state)

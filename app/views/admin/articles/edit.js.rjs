@@ -1,0 +1,17 @@
+id = dom_id(@article)
+
+if params[:cancel].true?
+  page[id].replace :partial => "article", :collection => [ @article ]
+else
+  if @previous
+    if @previous.is_a?(Article)
+      page[dom_id(@previous)].replace :partial => "article", :collection => [ @article ]
+    else
+      page.call "crm.flick", "user_#{@previous}", :remove
+    end
+  end
+
+  page.call "crm.highlight_off", id
+  page.call "crm.hide_form", :create_article
+  page[id].replace_html :partial => "edit"
+end

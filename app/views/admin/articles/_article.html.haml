@@ -1,0 +1,11 @@
+%li[article]{ highlightable(dom_id(article, :tools)) }
+  
+  .tools{ invisible, :id => dom_id(article, :tools) }
+    = link_to_edit(article) + " | "
+
+    = link_to_delete(article)
+    
+  %span.black #{article.title}
+
+  %span.black #{article.category.name}
+    

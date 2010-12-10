@@ -1,0 +1,7 @@
+if @comment.valid?
+  page.insert_html :top, :comments, :partial => "comment", :locals => { :comment => @comment }
+  page[dom_id(@comment)].visual_effect :highlight, :duration => 1.5
+  page[:post].hide
+  page[:ask].show
+  page[:comment_comment].clear
+end
