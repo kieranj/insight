@@ -14,7 +14,8 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :api do |api|
     api.resources :issues,
-      :except => [ :destroy ] do |issue|
+      :collection => { :my => :get },
+      :except     => [ :destroy ] do |issue|
         issue.resources :comments
       end
       

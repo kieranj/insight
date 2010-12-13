@@ -14,9 +14,14 @@ class Issue < ActiveRecord::Base
   
   validates_presence_of :subject
   validates_presence_of :body
+  validates_presence_of :category
   
   before_create :set_initial_state
   before_create :generate_slug
+  
+  named_scope :for_contact, lambda { |contact_id|
+    { :conditions => [ "contact_id = ?", contact_id ] }
+  }
   
   named_scope :by_category, lambda { |category_ids| 
     { :conditions => [ "category_id IN (?)", category_ids ] } 
