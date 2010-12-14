@@ -9,7 +9,7 @@ class Api::CommentsController < ApiController
       if @comment.save
         format.xml { render :xml => @comment.to_xml(:include => [:issue, :commenter]), :status => :created }
       else
-        format.xml { render :xml => @comment.errors, :status => :unprocessable_entry }
+        format.xml { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -21,7 +21,7 @@ class Api::CommentsController < ApiController
       if @comment.update_attributes(params[:comment])
         format.xml { head :ok }
       else
-        format.xml { render :xml => @comment.errors, :status => :unprocessable_entry }
+        format.xml { render :xml => @comment.errors, :status => :unprocessable_entity }
       end
     end
   end

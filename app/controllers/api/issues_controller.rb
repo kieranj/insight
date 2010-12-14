@@ -29,7 +29,7 @@ class Api::IssuesController < ApiController
       if @issue.save
         format.xml { render :xml => @issue, :status => :created, :location => @issue }
       else
-        format.xml { render :xml => @issue.errors, :status => :unprocessable_entry }
+        format.xml { render :xml => @issue.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -41,7 +41,7 @@ class Api::IssuesController < ApiController
       if @issue.update_attributes(params[:issue])
         format.xml { head :ok }
       else
-        format.xml { render :xml => @issue.errors, :status => :unprocessable_entry }
+        format.xml { render :xml => @issue.errors, :status => :unprocessable_entity }
       end
     end
   end
