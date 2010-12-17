@@ -13,9 +13,10 @@
   - IssueCategory.find_each do |category|
     .check_box{:style => "border-bottom: 1px silver dotted;"}
       %div{:style => "float:right;"}
-        = @issue_category_total[category.id]
-      = issue_category_checkbox(category, @issue_category_total[category.id])
+        = Issue.find_all_by_category_id(category.id).count
+      = issue_category_checkbox(category, Issue.find_all_by_category_id(category.id).count)
       = label_tag(category.name)
+      
   %br
   %h4 Priorities
   - Issue::Priorities.each do |priority|
@@ -25,7 +26,7 @@
       = issue_priority_checkbox(priority, Issue.find_all_by_priority(priority).count)
       = label_tag(priority)
   %br
-  %h4 Priorities
+  %h4 Statuses
   - Issue::States.each do |state|
     .check_box{:style => "border-bottom: 1px silver dotted;"}
       %div{:style => "float:right;"}

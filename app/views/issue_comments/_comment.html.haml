@@ -1,15 +1,19 @@
 - truncated = simple_format h(truncate(comment.comment.gsub("\n", " "), :length => 125))
 - formatted = simple_format h(comment.comment)
 - collapsable = formatted.size > 150
+- gravatar_size = @current_user.preference[:contacts_outline] == "brief" ? "16x16" : "30x30"
 
 %li[comment]{ highlightable(dom_id(comment, :tools), :off => "#f2f2f2") }
   .body
-    / = link_to avatar_for(comment.commenter, :size => "25x25")
+    = gravatar_for(comment, :size => gravatar_size)
     .tools{ invisible, :id => dom_id(comment, :tools) }
       = link_to_remote(t(:edit), :method => :get, :url => edit_issue_comment_path(@issue, comment), :with => "{ previous: crm.find_form('edit_issue_comment') }") + " | "
       = link_to_remote(t(:delete) + "!", :method => :delete, :url => issue_comment_path(@issue, comment), :before => visual_effect(:highlight, dom_id(comment), :startcolor => "#ffe4e1"))
       
-    = link_to(comment.commenter.full_name, user_path(comment.commenter)) + ","
+    - if comment.commenter
+      = link_to(comment.user_name, user_path(comment.commenter)) + ","
+    - else
+      = comment.user_name
     %tt
       added note #{t(:time_ago, distance_of_time_in_words(Time.now, comment.created_at))} (#{comment.created_at.strftime('%b %e, %Y')})
       - if collapsable

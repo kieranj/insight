@@ -18,6 +18,7 @@ class Issue < ActiveRecord::Base
   
   before_create :set_initial_state
   before_create :generate_slug
+  after_create  :create_lead, :if => :contact_not_present
   
   named_scope :for_contact, lambda { |contact_id|
     { :conditions => [ "contact_id = ?", contact_id ] }
@@ -61,7 +62,19 @@ class Issue < ActiveRecord::Base
     subject
   end
   
+  def email
+    contact.nil? ? user_email : contact.email
+  end
+  
+  def by
+    contact.nil? ? user_name : contact.full_name
+  end
+  
   protected
+  
+    def contact_not_present
+      contact_id.nil?
+    end
   
     def set_initial_state
       self.state = "Open"
@@ -69,6 +82,16 @@ class Issue < ActiveRecord::Base
     
     def generate_slug
       self.slug = self.subject.downcase.gsub(/ /, "-")
+    end
+    
+    def create_lead
+      Lead.create({
+        :first_name  => user_name.split(" ", 2)[0],
+        :last_name   => user_name.split(" ", 2)[1],
+        :email       => user_email,
+        :assigned_to => 1, 
+        :source      => "Insight"
+      })
     end
   
 end

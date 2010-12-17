@@ -7,7 +7,6 @@ class Api::ContactsController < ApiController
     end
   end
   
-  
   def create
     @contact = Contact.new(params[:contact])
     respond_to do |format|

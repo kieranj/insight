@@ -24,6 +24,7 @@ ActionController::Routing::Routes.draw do |map|
         :except => [ :destroy ]
       end
     
+    api.resources :leads,    :only => [ :create ]
     api.resources :accounts, :only => [ :create, :update ]
     api.resources :contacts, :only => [ :create, :update ]
     api.resources :articles

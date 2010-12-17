@@ -9,7 +9,7 @@
     %tr
       %td{ :valign => :top }
         .label.req Assigned to:
-        = collection_select :issue, :assigned_to, @users, :id, :full_name, { :include_blank => "Myself" }
+        = collection_select :issue, :assigned_to, @users, :id, :full_name, { :include_blank => true }
     %tr
       %td{ :valign => :top }
         .label Priority:

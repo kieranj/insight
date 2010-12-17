@@ -18,7 +18,6 @@ class Api::IssuesController < ApiController
     respond_to do |format|
       id  = params[:id].match(/.*-(\d+)$/)[1]
       xml = current_product.issues.find(id).to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } })
-      logger.error xml.inspect
       format.xml { render :xml => xml }
     end
   end

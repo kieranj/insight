@@ -23,7 +23,7 @@ class IssuesController < ApplicationController
   
   def edit
     @issue = Issue.find(params[:id])
-    @users = User.except(current_user).all
+    @users = User.all
     
     if params[:previous] =~ /(\d+)\z/
       @previous = Issue.my(@current_user).find($1)
@@ -77,9 +77,6 @@ class IssuesController < ApplicationController
       self.current_page  = options[:page] if options[:page]
       self.current_query = options[:query] if options[:query]
 
-      records = {
-        :order => Issue.sort_by
-      }
       pages = {
         :page     => current_page,
         :per_page => 20
@@ -109,7 +106,7 @@ class IssuesController < ApplicationController
         
       q = (current_query.blank? ? q : query.search(current_query))
 
-      q = q.paginate(pages)
+      q = q.all(:order => "created_at DESC").paginate(pages)
       q
     end
   
