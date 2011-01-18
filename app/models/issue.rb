@@ -42,6 +42,10 @@ class Issue < ActiveRecord::Base
   
   named_scope :public,
     :conditions => [ "private = ?", false ]
+    
+  named_scope :latest, lambda { |limit|
+    { :order => "created_at DESC", :limit => (limit || 5) }
+  }
 
   # simple_column_search :name, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
   uses_user_permissions

@@ -14,6 +14,12 @@ class Api::ArticlesController < ApiController
     end
   end
   
+  def latest
+    respond_to do |format|
+      format.xml { render :xml => current_product.articles.latest(5).to_xml }
+    end
+  end
+  
   protected
   
     def find_article_category

@@ -14,7 +14,7 @@ ActionController::Routing::Routes.draw do |map|
   
   map.namespace :api do |api|
     api.resources :issues,
-      :collection => { :my => :get },
+      :collection => { :my => :get, :latest => :get },
       :except     => [ :destroy ] do |issue|
         issue.resources :comments
       end
@@ -27,7 +27,8 @@ ActionController::Routing::Routes.draw do |map|
     api.resources :leads,    :only => [ :create ]
     api.resources :accounts, :only => [ :create, :update ]
     api.resources :contacts, :only => [ :create, :update ]
-    api.resources :articles
+    api.resources :articles,
+      :collection => { :latest => :get }
     api.resources :article_categories
   end
   

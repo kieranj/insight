@@ -1,5 +1,12 @@
 class Api::IssuesController < ApiController
   
+  def latest
+    @issues = current_product.issues.public.latest(5)
+    respond_to do |format|
+      format.xml { render :xml => @issues.to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } }) }
+    end
+  end
+  
   def my
     @issues = current_product.issues.for_contact(params[:contact_id])
     respond_to do |format|

@@ -13,6 +13,10 @@ class Article < ActiveRecord::Base
   
   before_save :generate_slug
   
+  named_scope :latest, lambda { |limit|
+    { :order => "created_at DESC", :limit => (limit || 5) }
+  }
+  
   protected
   
     def generate_slug
