@@ -65,9 +65,6 @@ class CreateInsightTables < ActiveRecord::Migration
       t.references :contact
     end
     
-    add_column :leads, :token, :string
-    add_column :leads, :salt,  :string
-    
   end
   
   def self.down
