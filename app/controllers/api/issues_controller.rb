@@ -8,7 +8,7 @@ class Api::IssuesController < ApiController
   end
   
   def my
-    @issues = current_product.issues.for_contact(params[:contact_id])
+    @issues = current_product.issues.for_contact(params[:crm_id])
     respond_to do |format|
       format.xml { render :xml => @issues.to_xml(xml_options) }
     end
