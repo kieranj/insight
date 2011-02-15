@@ -26,7 +26,8 @@ ActionController::Routing::Routes.draw do |map|
     
     api.resources :leads,    :only => [ :create ]
     api.resources :accounts, :only => [ :create, :update ]
-    api.resources :contacts, :only => [ :create, :update ]
+    api.resources :contacts, :only => [ :create, :update ],
+      :collection => { :email => :get }
     api.resources :articles,
       :collection => { :latest => :get }
     api.resources :article_categories

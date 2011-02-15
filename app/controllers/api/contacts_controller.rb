@@ -10,7 +10,11 @@ class Api::ContactsController < ApiController
   def email
     @contact = Contact.find_by_email(params[:email])
     respond_to do |format|
-      format.xml { render :xml => @contact }
+      if @contact
+        format.xml { render :xml => @contact }
+      else
+        format.xml { render :xml => "Not Found", :status => :not_found }
+      end
     end
   end
   
