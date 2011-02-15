@@ -1,6 +1,6 @@
 class ArticleCategory < ActiveRecord::Base
   
-  has_many   :articles, :foreign_key => "category_id"
+  has_many   :articles, :foreign_key => "category_id", :order => "updated_at DESC"
   belongs_to :product
   
   validates_presence_of   :name

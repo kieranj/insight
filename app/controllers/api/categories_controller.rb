@@ -2,7 +2,15 @@ class Api::CategoriesController < ApiController
   
   def index
     respond_to do |format|
-      format.xml { render :xml => current_product.issue_categories.to_xml(:include => { :issues => { :include => :contact } } ) }
+      xml = current_product.issue_categories.to_xml(:include => {
+        :issues => {
+          :include => {
+            :contact => { :only => [ :email, :first_name, :last_name, :id, :username ] }
+          }
+        }
+      })
+      logger.error xml
+      format.xml { render :xml =>  xml }
     end
   end
   
@@ -12,7 +20,7 @@ class Api::CategoriesController < ApiController
       xml = category.to_xml(:include => { 
         :issues => { 
           :include => {
-            :contact => {}, 
+            :contact => { :only => [ :email, :first_name, :last_name, :id, :username ] }, 
             :comments => { :include => :commenter } 
           } 
         }

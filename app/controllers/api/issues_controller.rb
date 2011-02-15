@@ -3,29 +3,28 @@ class Api::IssuesController < ApiController
   def latest
     @issues = current_product.issues.public.latest(5)
     respond_to do |format|
-      format.xml { render :xml => @issues.to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } }) }
+      format.xml { render :xml => @issues.to_xml(xml_options) }
     end
   end
   
   def my
     @issues = current_product.issues.for_contact(params[:contact_id])
     respond_to do |format|
-      format.xml { render :xml => @issues.to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } }) }
+      format.xml { render :xml => @issues.to_xml(xml_options) }
     end
   end
   
   def index
     @issues = current_product.issues.public
     respond_to do |format|
-      format.xml { render :xml => @issues.to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } }) }
+      format.xml { render :xml => @issues.to_xml(xml_options) }
     end
   end
   
   def show
     respond_to do |format|
       id  = params[:id].match(/.*-(\d+)$/)[1]
-      xml = current_product.issues.find(id).to_xml(:include => { :contact => {}, :category => {}, :comments => { :include => [ :commenter ] } })
-      format.xml { render :xml => xml }
+      format.xml { render :xml => current_product.issues.find(id).to_xml(xml_options) }
     end
   end
   
@@ -51,5 +50,25 @@ class Api::IssuesController < ApiController
       end
     end
   end
+  
+  private
+  
+    def xml_options
+      {
+        :include => {
+          :contact => {
+            :only => [ :email, :first_name, :last_name, :id, :username ]
+          },
+          :category => {},
+          :comments => {
+            :include => {
+              :commenter => {
+                :only => [ :email, :first_name, :last_name, :id, :username ]
+              }
+            }
+          }
+        }
+      }
+    end
   
 end
